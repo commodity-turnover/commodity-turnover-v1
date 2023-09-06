@@ -1,26 +1,100 @@
-import "./registrationPage.scss"
+import React, { useState } from "react";
+import axios from "axios";
+
+import { initialFormData } from "../../constants/const";
+
+import styles from './registrationPage.module.scss'
+import Button from "../../components/forms/Button/Button";
 
 const RegistrationPage = () => {
+  const [formData, setFormData] = useState(initialFormData);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
+  }
+
+  function handleSubmit(e:React. FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    axios.post('http://localhost:3001/registration', formData).then(res => {
+      console.log(res);
+    })
+  }
+
   return (
-    <div className="registrationPage">
-      <section className="container">
-        <div className="login-container">
-          <div className="form-container">
-            <h1 className="opacity">REGISTRATION</h1>
-            <form>
-              <input type="text" placeholder="ORGANIZATION NAME *" />
-              <input type="text" placeholder="USERNAME *" />
-              <input type="text" placeholder="CATEGORY *" />
-              <input type="text" placeholder="EMAIL *" />
-              <input type="text" placeholder="PHONE NUMBER *" />
-              <input type="password" placeholder="PASSWORD *" />
+    <div className={styles.registrationPage}>
+      <section className={styles.container}>
+        <div className={styles.loginContainer}>
+          <div className={styles.formContainer}>
+            <h1 className={styles.opacity}>Sign Up</h1>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="orgName">Organization Name *</label>
+              <input
+                type="text"
+                placeholder="ex. Degusto"
+                name="orgName"
+                id="orgName"
+                onChange={handleChange}
+              />
+              <label htmlFor="orgName">USERNAME *</label>
+              <input
+                type="text"
+                placeholder="ex. poghos001"
+                name="username"
+                onChange={handleChange}
+              />
+
+              <label htmlFor="category">CATEGORY *</label>
+              <select
+                name="category"
+                id="category"
+                onChange={handleChange}
+                value={formData.category}
+              >
+                <option value="factory">Factory</option>
+                <option value="shop">Shop</option>
+              </select>
+
+              <label htmlFor="orgName">EMAIL *</label>
+              <input
+                type="text"
+                placeholder="ex. test@gmail.com *"
+                name="email"
+                onChange={handleChange}
+              />
+              <label htmlFor="orgName">PHONE NUMBER *</label>
+              <input
+                type="text"
+                placeholder="ex. +374 33 123 456 *"
+                name="phone"
+                onChange={handleChange}
+              />
+              <label htmlFor="address">Address *</label>
+              <input
+                type="text"
+                placeholder="Ex. Yerevan, Abovyan 999 *"
+                name="address"
+                onChange={handleChange}
+              />
+              <label htmlFor="orgName">PASSWORD *</label>
+              <input
+                type="password"
+                placeholder="PASSWORD *"
+                name="password"
+                onChange={handleChange}
+              />
+              <label htmlFor="orgName">REPEAT PASSWORD *</label>
               <input type="password" placeholder="REPEAT PASSWORD *" />
-              <textarea placeholder="DESCRIPTION" />
-              <button className="opacity">SUBMIT</button>
+              <label htmlFor="orgName">DESCRIPTION</label>
+              <textarea placeholder="DESCRIPTION" name="description" onChange={handleChange}/>
+              <Button buttonType="btn" type="submit">SUBMIT</Button>
             </form>
           </div>
         </div>
-        <div className="theme-btn-container"></div>
       </section>
     </div>
   );
