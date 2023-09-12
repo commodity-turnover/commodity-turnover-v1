@@ -22,8 +22,13 @@ const RegistrationPage = () => {
   function handleSubmit(e:React. FormEvent<HTMLFormElement>) {
     e.preventDefault();
     axios.post('http://localhost:3001/registration', formData).then(res => {
-      console.log(res);
-    })
+      if(res.status === 201) {
+        localStorage.setItem("token", res.data.token)
+        navigate("/home")
+      }
+    }).catch(error => {
+      console.error("Registreation Error: ", error);
+    });
   }
 
   const token = localStorage.getItem("token");
