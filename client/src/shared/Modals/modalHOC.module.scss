@@ -1,0 +1,38 @@
+.backDrop {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 9999;
+}
+
+.modal {
+    // margin: 110px auto;
+    padding: 4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    position: fixed;
+    background-color: cadetblue;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    border-radius: 20px;
+    z-index: 10000;
+
+    .closeBtn {
+        height: 30px;
+        position: absolute;
+        right: 5px;
+        z-index: 100000;
+        cursor: pointer;
+    }
+
+    .modalWrapper {
+        margin-top: 25px;
+        padding: 10px;
+    }
+}

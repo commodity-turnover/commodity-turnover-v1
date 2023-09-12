@@ -7,6 +7,7 @@ export const errorHandler = (controller: controller) => async(req: Request, res:
     try {
         await controller(req, res);
     } catch (error: any) {
-        sendResponse(error, res)
+        res.status(400).send(error)
+        // sendResponse(error, res)
     }
 }

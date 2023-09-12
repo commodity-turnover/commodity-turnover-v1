@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { clearUser } from "../../../redux/features/user/userSlice";
 import { RootState } from "../../../redux/types";
@@ -19,7 +19,7 @@ const Header = () => {
     dispatch(clearUser());
   }
 
-  const btnWrapper = isLogin ? (
+  const btnWrapper = localStorage.getItem("token") ? (
     <>
       <Link to="/">
         <Button buttonType="btn" onClick={logout}>

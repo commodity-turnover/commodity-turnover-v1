@@ -1,21 +1,24 @@
 import { Request, Response } from 'express'
 
 import { errorHandler } from '../helpers/errorHandler'
-import { sendResponse } from '../helpers/functions'
+// import { sendResponse } from '../helpers/functions'
 
 export class MainController {
   constructor(private mainService:any) {}
 
   postLoginData = errorHandler(async (req: Request, res: Response) => {
-    const response = await this.mainService.getUser(req.body)
+    const response = await this.mainService.loginUser(req.body)
     // sendResponse(null, res, 201, userData)
-    
     res.status(201).json(response)
   })
 
   postRegistrationData = errorHandler(async (req: Request, res: Response) => {
-    await this.mainService.createUser(req.body)
-    sendResponse(null, res, 201, 'User created successfully!')
+    const response = await this.mainService.registerUser(req.body)
+    res.status(201).send(response)
   })
 
+  getUserData = errorHandler(async (req: Request, res: Response) => {
+    const response = await this.mainService.getUser(req.userId)
+    res.status(201).send(response)
+  })
 }

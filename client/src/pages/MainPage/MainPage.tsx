@@ -1,9 +1,11 @@
-import React from 'react'
+import styles from "./mainPage.module.scss";
 
 const MainPage = () => {
   return (
-    <div>MainPage</div>
-  )
-}
+    <div className={styles.mainPage}>
+      <div>Main page</div>
+    </div>
+  );
+};
 
-export default MainPage
+export default MainPage;

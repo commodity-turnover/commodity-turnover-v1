@@ -1,18 +1,20 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import type { RootState } from '../../redux/app/store'
-import { useDispatch } from 'react-redux'
 
-import {setUser} from "../../redux/features/user/userSlice"
-import styles from "./loginPage.module.scss";
 import Button from "../../components/forms/Button/Button";
+
+// import type { RootState } from '../../redux/app/store'
+// import { useDispatch } from "react-redux";
+// import { setUser } from "../../redux/features/user/userSlice";
+
+import styles from "./loginPage.module.scss";
 
 const LoginPage = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,18 +22,13 @@ const LoginPage = () => {
     axios
       .post("http://localhost:3001/login", { login, password })
       .then((res) => {
-        // if(res.err) {
-
-        // } else {
         if (res.data.login) {
-          localStorage.setItem("token", res.data.token)
-          dispatch(setUser(res))
+          localStorage.setItem("token", res.data.token);
+          // dispatch(setUser(res));
           navigate("/home");
-
         } else {
           alert("no record exist");
         }
-        // }
       });
   }
 
@@ -52,7 +49,9 @@ const LoginPage = () => {
                 placeholder="PASSWORD"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button buttonType="submit" className={styles.login}>SUBMIT</Button>
+              <Button buttonType="submit" className={styles.login}>
+                SUBMIT
+              </Button>
             </form>
             <div className={`${styles.registerForget} ${styles.opacity}`}>
               <Link to="/registration">REGISTER</Link>

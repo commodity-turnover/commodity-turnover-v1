@@ -6,8 +6,18 @@
         min-height: calc(100vh - 214px);
         width: 23%;
         background-color: aqua;
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        img {
+            height: 180px;
+            width: 180px;
+            margin-bottom: 15px;
+        }
     }
-    
+
     .mainContent {
         width: 78%;
         padding: 15px;
@@ -25,14 +35,26 @@
             font-size: 36px;
             border: 1px solid;
         }
-        
+
         .subContent {
             padding: 15px;
             border: 1px solid;
 
-            ul {
-                display: flex;
-                gap: 7px;
+            .tabBar {
+                margin-bottom: 10px;
+
+                ul {
+                    display: flex;
+                    gap: 7px;
+
+                    li {
+                        cursor: pointer;
+                    }
+                }
+
+                .selectedTab {
+                    font-weight: bold;
+                }
             }
         }
     }

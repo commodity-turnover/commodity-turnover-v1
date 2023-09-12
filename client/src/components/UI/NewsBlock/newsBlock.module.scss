@@ -1,0 +1,28 @@
+.newsBlock {
+    padding: 10px;
+    border: 1px solid;
+    margin-bottom: 20px;
+    position: relative;
+
+    .newsTitle {
+        margin-bottom: 15px;
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+
+    .newsImgWrapper {
+        margin-bottom: 15px;
+        img{
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }}
+
+    .creationDate {
+        position: absolute;
+        top: 16px;
+        right: 10px;
+    }
+}

@@ -2,13 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface responseData {
   login: boolean,
-  token: string,
   userData: any
 }
 
 const initialState: responseData = {
   login: false,
-  token: '',
   userData: null,
 }
 
@@ -17,13 +15,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.login = action.payload.data.login
-      state.token = action.payload.data.token
-      state.userData = action.payload.data.userData
+      state.login = action.payload.login
+      state.userData = action.payload.userData
     },
     clearUser: (state) => {
       state.login = false
-      state.token = ''
       state.userData = null
     },
   },
