@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { initialFormData } from "../../constants/const";
+import Button from "../../components/forms/Button/Button";
 
 import styles from './registrationPage.module.scss'
-import Button from "../../components/forms/Button/Button";
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState(initialFormData);
@@ -24,6 +25,15 @@ const RegistrationPage = () => {
       console.log(res);
     })
   }
+
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  
+  useEffect(() => {    
+    if (token) {
+      navigate("/home")
+    }
+  }, []);
 
   return (
     <div className={styles.registrationPage}>

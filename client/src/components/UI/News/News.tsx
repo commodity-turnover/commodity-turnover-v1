@@ -4,7 +4,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { getNewsData } from "../../../api/API.service";
 import NewsBlock from "../NewsBlock/NewsBlock";
 
-import styles from "./news.module.scss"
+import styles from "./news.module.scss";
 
 const News = () => {
   const [news, setNews] = useState([]);
@@ -16,9 +16,8 @@ const News = () => {
       setNews(newsData);
     }
     fetchNews();
-    setLoading(false)
+    setLoading(false);
   }, []);
-
 
   if (loading) {
     return (
@@ -30,9 +29,9 @@ const News = () => {
 
   return (
     <div>
-      {news.map((n: any) => {
-        return <NewsBlock key={n.news_id} newsData={n} />;
-      })}
+      {news.map((n: any) => (
+        <NewsBlock key={n.news_id} newsData={n} />
+      ))}
     </div>
   );
 };

@@ -1,20 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Button from "../../components/forms/Button/Button";
-
-// import type { RootState } from '../../redux/app/store'
-// import { useDispatch } from "react-redux";
-// import { setUser } from "../../redux/features/user/userSlice";
 
 import styles from "./loginPage.module.scss";
 
 const LoginPage = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -24,13 +20,19 @@ const LoginPage = () => {
       .then((res) => {
         if (res.data.login) {
           localStorage.setItem("token", res.data.token);
-          // dispatch(setUser(res));
           navigate("/home");
         } else {
           alert("no record exist");
         }
       });
   }
+
+  
+  useEffect(() => {    
+    if (token) {
+      navigate("/home")
+    }
+  }, []);
 
   return (
     <div className={styles.loginPage}>

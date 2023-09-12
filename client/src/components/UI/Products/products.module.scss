@@ -21,18 +21,19 @@
 
     .addProduct {
         flex-grow: 1;
-        
-        button{
-        height: 25px;
-        width: 25px;
-        background-image: url("../../../assets/images/product/add_product.png");
-        background-size: contain;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        cursor: pointer;
-    }}
+
+        button {
+            height: 25px;
+            width: 25px;
+            background-image: url("../../../assets/images/product/add_product.png");
+            background-size: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+        }
+    }
 }
 
 .loader {

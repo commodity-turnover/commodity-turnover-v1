@@ -66,7 +66,8 @@ const Products = (props: any) => {
           </option>
           <option value="lastDateAsc">Old Date</option>
           <option value="lastDateDesc">Last Date</option>
-          <option value="nameAsc">Name (Ascending)</option> {/* from down to top - աճող*/}
+          <option value="nameAsc">Name (Ascending)</option>{" "}
+          {/* from down to top - աճող*/}
           <option value="nameDesc">Name (Descending)</option>
           <option value="priceAsc">Price (Ascending)</option>
           <option value="priceDesc">Price (Descending)</option>
