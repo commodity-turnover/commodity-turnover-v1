@@ -45,7 +45,7 @@ export default class UserService {
     return new Promise(async (resolve, reject) => {
       const client = await pool.connect()
       const query =
-        'INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
+        'INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
 
       bcrypt.hash(newUserData.password, saltRounds, async (err, hash) => {
         if (err) {
@@ -67,6 +67,7 @@ export default class UserService {
           newUserData.description,
           new Date().toISOString(),
           newUserData.address,
+          true
         ])
 
         const token = createToken(userId)

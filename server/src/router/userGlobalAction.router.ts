@@ -7,6 +7,6 @@ const userGlobalActionRouter = express.Router();
 
 userGlobalActionRouter.get('/news', userGlobalAction.getNews)
 // userGlobalActionRouter.get('/search-products', userGlobalAction.postRegistrationData)
-// userGlobalActionRouter.get('/search-partners', verifyTokenMiddleware, userGlobalAction.getUserData)
+userGlobalActionRouter.get('/search-partners', verifyTokenMiddleware, userGlobalAction.getPartners)
 
 export default userGlobalActionRouter

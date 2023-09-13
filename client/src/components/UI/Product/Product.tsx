@@ -3,6 +3,7 @@ import product_default_img from "../../../assets/images/product/default_product.
 import { deleteProduct, getProduct } from "../../../api/API.service";
 
 import styles from "./product.module.scss";
+import CardHOC from "../../../shared/CardHOC/CardHOC";
 
 const Product = (props: any) => {
   const { product_id, name, price, product_count } = props.productData;
@@ -40,6 +41,8 @@ const Product = (props: any) => {
   };
 
   return (
+    <CardHOC>
+
     <div className={styles.product}>
       <div className={styles.productImgWrapper}>
         <img src={product_default_img} alt="default_product" />
@@ -65,6 +68,7 @@ const Product = (props: any) => {
         </div>
       </div>
     </div>
+    </CardHOC>
   );
 };
 

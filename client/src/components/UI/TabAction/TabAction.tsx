@@ -1,5 +1,7 @@
 import News from "../News/News";
 import Products from "../Products/Products";
+import SearchPartners from "../SearchPartners/SearchPartners";
+import Settings from "../Settings/Settings";
 
 const TabAction = (props: any) => {
   let tabContent = null;
@@ -27,13 +29,13 @@ const TabAction = (props: any) => {
       tabContent = <div>Search products</div>;
       break;
     case "s_partners":
-      tabContent = <div>Search Partners</div>;
+      tabContent = <SearchPartners />;
       break;
     case "settings":
-      tabContent = <div>Settings</div>;
+      tabContent = <Settings />;
       break;
     default:
-      tabContent = <div>News</div>;
+      tabContent = <News />;
   }
   return <div>{tabContent}</div>;
 };

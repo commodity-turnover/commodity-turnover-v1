@@ -139,3 +139,23 @@ export const getNewsData = async () => {
     console.error('Error - GET news ', error)
   }
 }
+
+export const getPartners = async () => {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    return
+  }
+
+  try {
+    const response = await axios.get(`${BASE_URL}/search-partners`, {
+      headers: {
+        'access-token': token,
+      },
+    })
+
+    return response.data
+  } catch (error) {
+    console.error('Error - Get user data!', error)
+  }
+}
