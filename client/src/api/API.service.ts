@@ -159,3 +159,26 @@ export const getPartners = async () => {
     console.error('Error - Get user data!', error)
   }
 }
+
+export const postActivate = async (isActive: boolean) => {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    return
+  }
+
+  console.log("[API] isActive ===>> ", isActive);
+  
+  try {
+    const response = await axios.post(`${BASE_URL}/activate`, {isActive}, {
+      headers: {
+        'access-token': token,
+      },
+    })
+
+    return response.data
+  } catch (error) {
+    console.error('Error - Get user data!', error)
+  }
+}
+

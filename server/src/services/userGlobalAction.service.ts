@@ -19,14 +19,9 @@ export default class UserGlobalActionService {
       console.log('Error: Get news data', error)
     }
   }
+
   async getPartners(userId: string, category: string): Promise<any> {
     const db = await pool.connect()
-
-
-
-    // ADD CATEGORY
-
-
 
     try {
       let query = `SELECT * FROM users WHERE user_id != $1 AND is_active = true`
@@ -39,6 +34,19 @@ export default class UserGlobalActionService {
 
       const newsData = result.rows
       return newsData
+    } catch (error) {
+      console.log('Error: Get news data', error)
+    }
+  }
+  
+  async postActivate(userId: string, isActiveData: any): Promise<any> {
+    const db = await pool.connect()
+
+    try {
+      const query = 'UPDATE users SET is_active = $1 WHERE user_id = $2';
+      const result = await db.query(query, [isActiveData, userId])
+
+      return result
     } catch (error) {
       console.log('Error: Get news data', error)
     }

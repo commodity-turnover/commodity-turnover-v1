@@ -1,0 +1,30 @@
+.settings {
+
+    // .radioBtnWrapper {
+    // display: flex;
+    fieldset {
+        padding: 20px;
+        border: 2px solid;
+
+        legend {
+            font-weight: bold;
+        }
+    }
+
+    input {
+        display: none;
+    }
+
+    label {
+        padding: 3px 5px;
+        border: 1px solid;
+        cursor: pointer;
+    }
+
+    // }
+}
+
+.isActive {
+    background-color: gray;
+    color: #fff;
+}

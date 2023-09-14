@@ -22,9 +22,12 @@ export const userSlice = createSlice({
       state.login = false
       state.userData = null
     },
+    setActiveData: (state) => {
+      state.userData.is_active = !state.userData.is_active
+    }
   },
 })
 
-export const { setUser, clearUser } = userSlice.actions
+export const { setUser, clearUser, setActiveData } = userSlice.actions
 
 export default userSlice.reducer
