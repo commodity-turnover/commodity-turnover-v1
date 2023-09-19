@@ -9,18 +9,18 @@ const saltRounds = 10
 const pool = new Pool(config)
 
 export default class UserService {
-  async loginUser(loginData: any): Promise<any> {
+  async loginUser(loginCredentials: any): Promise<any> {
     const db = await pool.connect()
 
     try {
       const query = `SELECT * FROM users WHERE username = $1`
-      const data = await db.query(query, [loginData.login])
+      const data = await db.query(query, [loginCredentials.login])
 
       const { rows } = data
       if (rows.length > 0) {
         const userData = rows[0]
         const passwordMatch = await bcrypt.compare(
-          loginData.password,
+          loginCredentials.password,
           userData.user_password,
         )
         if (passwordMatch) {
@@ -41,13 +41,13 @@ export default class UserService {
     }
   }
 
-  async registerUser(newUserData: any): Promise<{ token: string }> {
+  async registerUser(userRegistrationData: any): Promise<{ token: string }> {
     return new Promise(async (resolve, reject) => {
       const client = await pool.connect()
       const query =
         'INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
 
-      bcrypt.hash(newUserData.password, saltRounds, async (err, hash) => {
+      bcrypt.hash(userRegistrationData.password, saltRounds, async (err, hash) => {
         if (err) {
           console.log(err)
           reject(err)
@@ -58,15 +58,15 @@ export default class UserService {
 
         await client.query(query, [
           userId,
-          newUserData.orgName,
-          newUserData.username,
-          newUserData.category,
-          newUserData.email,
-          newUserData.phone,
+          userRegistrationData.orgName,
+          userRegistrationData.username,
+          userRegistrationData.category,
+          userRegistrationData.email,
+          userRegistrationData.phone,
           hash,
-          newUserData.description,
+          userRegistrationData.description,
           new Date().toISOString(),
-          newUserData.address,
+          userRegistrationData.address,
           true
         ])
 

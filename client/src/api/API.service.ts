@@ -167,8 +167,6 @@ export const postActivate = async (isActive: boolean) => {
     return
   }
 
-  console.log("[API] isActive ===>> ", isActive);
-  
   try {
     const response = await axios.post(`${BASE_URL}/activate`, {isActive}, {
       headers: {

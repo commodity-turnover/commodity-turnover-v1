@@ -6,13 +6,13 @@ import { errorHandler } from '../helpers/errorHandler'
 export class MainController {
   constructor(private mainService:any) {}
 
-  postLoginData = errorHandler(async (req: Request, res: Response) => {
+  loginUser = errorHandler(async (req: Request, res: Response) => {
     const response = await this.mainService.loginUser(req.body)
     // sendResponse(null, res, 201, userData)
     res.status(201).json(response)
   })
 
-  postRegistrationData = errorHandler(async (req: Request, res: Response) => {
+  registerUser = errorHandler(async (req: Request, res: Response) => {
     const response = await this.mainService.registerUser(req.body)
     res.status(201).send(response)
   })

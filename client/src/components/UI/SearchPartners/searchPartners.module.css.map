@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,CAAC;EACZ,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,QAAQ;EACnB,GAAG,EAAE,IAAI;CACZ",
+    "sources": [
+        "searchPartners.module.scss"
+    ],
+    "names": [],
+    "file": "searchPartners.module.css"
+}

@@ -6,8 +6,8 @@ import { verifyTokenMiddleware } from "../helpers/middlewares";
 
 const mainRouter = express.Router();
 
-mainRouter.post('/login', mainController.postLoginData)
-mainRouter.post('/registration', mainController.postRegistrationData)
+mainRouter.post('/login', mainController.loginUser)
+mainRouter.post('/registration', mainController.registerUser)
 mainRouter.get('/home', verifyTokenMiddleware, mainController.getUserData)
 
 export default mainRouter

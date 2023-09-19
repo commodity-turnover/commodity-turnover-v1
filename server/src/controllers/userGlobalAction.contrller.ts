@@ -10,14 +10,14 @@ export class UserGlobalActionController {
     res.status(200).json(response)
   })
 
-  getPartners = errorHandler(async (req: Request, res: Response) => {
-    const response = await this.userGlobalActionService.getPartners(req.userId)
+  searchPartners = errorHandler(async (req: Request, res: Response) => {
+    const response = await this.userGlobalActionService.searchPartners(req.userId)
     res.status(200).json(response)
   })
 
-  postActivate = errorHandler(async (req: Request, res: Response) => {
+  activateUser = errorHandler(async (req: Request, res: Response) => {
     const isActiveData = req.body.isActive;
-    const response = await this.userGlobalActionService.postActivate(req.userId, isActiveData)
+    const response = await this.userGlobalActionService.activateUser(req.userId, isActiveData)
     res.status(200).json(response)
   }) 
 }

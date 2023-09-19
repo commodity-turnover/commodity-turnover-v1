@@ -20,7 +20,7 @@ export default class UserGlobalActionService {
     }
   }
 
-  async getPartners(userId: string, category: string): Promise<any> {
+  async searchPartners(userId: string, category: string): Promise<any> {
     const db = await pool.connect()
 
     try {
@@ -38,12 +38,12 @@ export default class UserGlobalActionService {
       console.log('Error: Get news data', error)
     }
   }
-  
-  async postActivate(userId: string, isActiveData: any): Promise<any> {
+
+  async activateUser(userId: string, isActiveData: any): Promise<any> {
     const db = await pool.connect()
 
     try {
-      const query = 'UPDATE users SET is_active = $1 WHERE user_id = $2';
+      const query = 'UPDATE users SET is_active = $1 WHERE user_id = $2'
       const result = await db.query(query, [isActiveData, userId])
 
       return result

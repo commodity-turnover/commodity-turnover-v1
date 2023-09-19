@@ -1,8 +1,4 @@
-// import { v4 as uuidv4 } from 'uuid'
-// import bcrypt from 'bcrypt'
 import { Pool } from 'pg'
-// import jwt from 'jsonwebtoken'
-
 import { config } from '../config/db-config'
 
 const pool = new Pool(config)
@@ -62,7 +58,7 @@ export default class ProductService {
     }
   }
 
-  async getProduct(userId: string, productId: number): Promise<any> {
+  async getProductById(userId: string, productId: number): Promise<any> {
     const db = await pool.connect()
 
     try {
@@ -102,7 +98,7 @@ export default class ProductService {
     }
   }
 
-  async updateProduct(userId: string, productData: any): Promise<any> {
+  async updateProductById(userId: string, productData: any): Promise<any> {
     const db = await pool.connect()
 
     try {
@@ -126,7 +122,7 @@ export default class ProductService {
     }
   }
 
-  async deleteProduct(userId: string, productId: number): Promise<any> {
+  async deleteProductById(userId: string, productId: number): Promise<any> {
     const db = await pool.connect()
     try {
       const query = 'DELETE FROM user_products WHERE product_id = $1'

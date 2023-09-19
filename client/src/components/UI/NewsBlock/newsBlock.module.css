@@ -1,0 +1,33 @@
+.newsBlock {
+  padding: 10px;
+  border: 1px solid;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.newsBlock .newsTitle {
+  margin-bottom: 15px;
+}
+
+.newsBlock .newsTitle h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.newsBlock .newsImgWrapper {
+  margin-bottom: 15px;
+}
+
+.newsBlock .newsImgWrapper img {
+  width: 100%;
+  height: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.newsBlock .creationDate {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+/*# sourceMappingURL=newsBlock.module.css.map */

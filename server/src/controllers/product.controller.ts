@@ -14,31 +14,31 @@ export class ProductController {
     res.status(200).json(response)
   })
 
-  getProduct = errorHandler(async (req: Request, res: Response) => {
+  getProductById = errorHandler(async (req: Request, res: Response) => {
     const productId = req.params.id;
     
-    const response = await this.productService.getProduct(req.userId, productId)
+    const response = await this.productService.getProductById(req.userId, productId)
     res.status(200).json(response)
   })
 
-  addProducts = errorHandler(async (req: Request, res: Response) => {
+  addProduct = errorHandler(async (req: Request, res: Response) => {
     
     const response = await this.productService.addProduct(req.userId, req.body)
     
     res.status(200).json(response)
   })
 
-  updateProduct = errorHandler(async (req: Request, res: Response) => {
+  updateProductById = errorHandler(async (req: Request, res: Response) => {
     
-    const response = await this.productService.updateProduct(req.userId, req.body)
+    const response = await this.productService.updateProductById(req.userId, req.body)
     
     res.status(200).json(response)
   })
 
-  deleteProduct = errorHandler(async (req: Request, res: Response) => {
+  deleteProductById = errorHandler(async (req: Request, res: Response) => {
     const productId = req.params.id;
     
-    const response = await this.productService.deleteProduct(req.userId, productId)
+    const response = await this.productService.deleteProductById(req.userId, productId)
     
     res.status(200).json(response)
   })
