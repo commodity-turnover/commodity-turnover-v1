@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
 
 import { errorHandler } from '../helpers/errorHandler'
+import UserGlobalActionService from '../services/userGlobalAction.service'
 
 export class UserGlobalActionController {
-  constructor(private userGlobalActionService:any) {}
+  constructor(private userGlobalActionService: UserGlobalActionService) {}
 
   getNews = errorHandler(async (req: Request, res: Response) => {
     const response = await this.userGlobalActionService.getNews()
@@ -17,7 +18,7 @@ export class UserGlobalActionController {
 
   activateUser = errorHandler(async (req: Request, res: Response) => {
     const isActiveData = req.body.isActive;
-    const response = await this.userGlobalActionService.activateUser(req.userId, isActiveData)
+    const response = await this.userGlobalActionService.activateUser(req.userId, isActiveData)    
     res.status(200).json(response)
-  }) 
+  })
 }

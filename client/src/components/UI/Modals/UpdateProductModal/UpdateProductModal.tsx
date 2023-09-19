@@ -6,7 +6,7 @@ import styles from "./updateProductModal.module.scss";
 import { getAllProducts, updateProduct } from "../../../../api/API.service";
 
 const UpdateProductModal = (props: any) => {
-  const [productData, setProductData] = useState(props.selectedProductData[0]);
+  const [productData, setProductData] = useState(props.selectedProductData);
 
   function handleChange(
     e: React.ChangeEvent<

@@ -26,10 +26,11 @@ export const verifyTokenMiddleware = (
       (err: VerifyErrors | null, decoded: any) => {
         if (err) {
           return res.status(403).json({ message: 'Unauthorized' })
-        } else {
+        } else if(decoded) {
           req.userId = decoded.user_id
-          
           next()
+        } else {
+          return res.status(403).json({ message: 'Unauthorized' })
         }
       },
     )

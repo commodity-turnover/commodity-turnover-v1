@@ -11,7 +11,7 @@ const ProductDetailModal = (props: any) => {
     props.toggleModal("");
   }
 
-  const parsedDate = new Date(props.selectedProductData[0].creationtimestamp);
+  const parsedDate = new Date(props.selectedProductData.creationtimestamp);
   
   const formattedDate = format(parsedDate, "MMMM d, yyyy");
 
@@ -32,11 +32,11 @@ const ProductDetailModal = (props: any) => {
         </div>
         ) : (
           <>
-            <h2>{props.selectedProductData[0].name}</h2>
+            <h2>{props.selectedProductData.name}</h2>
             <img src={defaultProductImg} alt="Product Img" />
-            <p><strong>Price:</strong> ${props.selectedProductData[0].price}</p>
-            <p><strong>Product Count:</strong> {props.selectedProductData[0].product_count}</p>
-            <p><strong>Description:</strong> {props.selectedProductData[0].description}</p>
+            <p><strong>Price:</strong> ${props.selectedProductData.price}</p>
+            <p><strong>Product Count:</strong> {props.selectedProductData.product_count}</p>
+            <p><strong>Description:</strong> {props.selectedProductData.description}</p>
             <p><strong>Creation Date:</strong> {formattedDate}</p>
           </>
         )}

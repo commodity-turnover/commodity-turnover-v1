@@ -1,5 +1,11 @@
 import { Pool } from 'pg'
 import { config } from '../config/db-config'
+import {
+  IProductData,
+  IProductDataDB,
+  IServerResponseError,
+  IServerResponseSuccess,
+} from '../interfaces/interfaces'
 
 const pool = new Pool(config)
 
@@ -8,7 +14,7 @@ export default class ProductService {
     userId: string,
     productName: string,
     sortType: string,
-  ): Promise<any> {
+  ): Promise<IProductData[]> {
     const db = await pool.connect()
 
     try {
@@ -58,7 +64,10 @@ export default class ProductService {
     }
   }
 
-  async getProductById(userId: string, productId: number): Promise<any> {
+  async getProductById(
+    userId: string,
+    productId: number,
+  ): Promise<IProductDataDB | undefined> {
     const db = await pool.connect()
 
     try {
@@ -68,13 +77,17 @@ export default class ProductService {
       const result = await db.query(query, [productId, userId])
 
       const productData = result.rows
-      return productData
+
+      return productData[0]
     } catch (error) {
       console.log('Error: Get product data', error)
     }
   }
 
-  async addProduct(userId: string, productData: any): Promise<any> {
+  async addProduct(
+    userId: string,
+    productData: IProductData,
+  ): Promise<IServerResponseSuccess> {
     const db = await pool.connect()
 
     try {
@@ -98,7 +111,10 @@ export default class ProductService {
     }
   }
 
-  async updateProductById(userId: string, productData: any): Promise<any> {
+  async updateProductById(
+    userId: string,
+    productData: IProductDataDB,
+  ): Promise<IServerResponseSuccess> {
     const db = await pool.connect()
 
     try {
@@ -122,7 +138,10 @@ export default class ProductService {
     }
   }
 
-  async deleteProductById(userId: string, productId: number): Promise<any> {
+  async deleteProductById(
+    userId: string,
+    productId: number,
+  ): Promise<IServerResponseSuccess | IServerResponseError> {
     const db = await pool.connect()
     try {
       const query = 'DELETE FROM user_products WHERE product_id = $1'
@@ -131,7 +150,13 @@ export default class ProductService {
 
       return { message: 'Product deleted successfully.' }
     } catch (error) {
-      console.log('Error: Delete product data', error)
+      console.error('Error: Delete product data', error)
+
+      const castedError = error as Error
+      return {
+        message: 'Error occured while deleting product!',
+        error: castedError.message,
+      }
     }
   }
 }

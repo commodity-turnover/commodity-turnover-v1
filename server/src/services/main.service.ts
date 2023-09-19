@@ -4,12 +4,21 @@ import { Pool } from 'pg'
 
 import { config } from '../config/db-config'
 import { createToken } from '../helpers/functions'
+import {
+  ILoginUser,
+  ILoginUserResponse,
+  IServerResponseSuccess,
+  IUserRegistrationData,
+  ISignupUser,
+} from '../interfaces/interfaces'
 
 const saltRounds = 10
 const pool = new Pool(config)
 
 export default class UserService {
-  async loginUser(loginCredentials: any): Promise<any> {
+  async loginUser(
+    loginCredentials: ILoginUser,
+  ): Promise<ILoginUserResponse | IServerResponseSuccess> {
     const db = await pool.connect()
 
     try {
@@ -27,7 +36,7 @@ export default class UserService {
           const { user_id } = userData
           const token = createToken(user_id)
 
-          return { login: true, token, userData }
+          return { login: true, token }
         } else {
           return { message: 'Wrong password!' }
         }
@@ -41,43 +50,49 @@ export default class UserService {
     }
   }
 
-  async registerUser(userRegistrationData: any): Promise<{ token: string }> {
+  async registerUser(
+    userRegistrationData: IUserRegistrationData,
+  ): Promise<{ token: string }> {
     return new Promise(async (resolve, reject) => {
       const client = await pool.connect()
       const query =
         'INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
 
-      bcrypt.hash(userRegistrationData.password, saltRounds, async (err, hash) => {
-        if (err) {
-          console.log(err)
-          reject(err)
-          return
-        }
+      bcrypt.hash(
+        userRegistrationData.password,
+        saltRounds,
+        async (err, hash) => {
+          if (err) {
+            console.log(err)
+            reject(err)
+            return
+          }
 
-        const userId = uuidv4()
+          const userId = uuidv4()
 
-        await client.query(query, [
-          userId,
-          userRegistrationData.orgName,
-          userRegistrationData.username,
-          userRegistrationData.category,
-          userRegistrationData.email,
-          userRegistrationData.phone,
-          hash,
-          userRegistrationData.description,
-          new Date().toISOString(),
-          userRegistrationData.address,
-          true
-        ])
+          await client.query(query, [
+            userId,
+            userRegistrationData.orgName,
+            userRegistrationData.username,
+            userRegistrationData.category,
+            userRegistrationData.email,
+            userRegistrationData.phone,
+            hash,
+            userRegistrationData.description,
+            new Date().toISOString(),
+            userRegistrationData.address,
+            true,
+          ])
 
-        const token = createToken(userId)
+          const token = createToken(userId)
 
-        resolve({ token })
-      })
+          resolve({ token })
+        },
+      )
     })
   }
 
-  async getUser(userId: any): Promise<any> {
+  async getUser(userId: string): Promise<ISignupUser | undefined> {
     const db = await pool.connect()
 
     try {

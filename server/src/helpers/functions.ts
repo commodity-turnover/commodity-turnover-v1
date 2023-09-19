@@ -17,7 +17,7 @@ export function sendResponse(
   }
 }
 
-export const createToken = (user_id: any) => {
+export const createToken = (user_id: string) => {
   const accessToken = jwt.sign({ user_id }, jwtSecretKey, {
     // expiresIn: 300,
   })

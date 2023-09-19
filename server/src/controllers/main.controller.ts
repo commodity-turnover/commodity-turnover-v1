@@ -6,7 +6,7 @@ import { errorHandler } from '../helpers/errorHandler'
 export class MainController {
   constructor(private mainService:any) {}
 
-  loginUser = errorHandler(async (req: Request, res: Response) => {
+  loginUser = errorHandler(async (req: Request, res: Response) => {    
     const response = await this.mainService.loginUser(req.body)
     // sendResponse(null, res, 201, userData)
     res.status(201).json(response)

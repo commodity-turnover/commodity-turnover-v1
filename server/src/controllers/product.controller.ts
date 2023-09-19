@@ -18,11 +18,11 @@ export class ProductController {
     const productId = req.params.id;
     
     const response = await this.productService.getProductById(req.userId, productId)
+    
     res.status(200).json(response)
   })
 
   addProduct = errorHandler(async (req: Request, res: Response) => {
-    
     const response = await this.productService.addProduct(req.userId, req.body)
     
     res.status(200).json(response)

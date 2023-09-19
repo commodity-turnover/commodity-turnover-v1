@@ -1,11 +1,12 @@
-import { Pool } from 'pg'
+import { Pool, QueryResult } from 'pg'
 
 import { config } from '../config/db-config'
+import { INewsData, IServerResponseSuccess, IServerResponseError, IUserData } from '../interfaces/interfaces'
 
 const pool = new Pool(config)
 
 export default class UserGlobalActionService {
-  async getNews(): Promise<any> {
+  async getNews(): Promise<INewsData[]> {
     const db = await pool.connect()
 
     try {
@@ -14,41 +15,52 @@ export default class UserGlobalActionService {
       const result = await db.query(query)
 
       const newsData = result.rows
+
       return newsData
     } catch (error) {
       console.log('Error: Get news data', error)
+      return []
     }
   }
 
-  async searchPartners(userId: string, category: string): Promise<any> {
+  async searchPartners(userId: string | undefined): Promise<IUserData[]> {
     const db = await pool.connect()
 
     try {
       let query = `SELECT * FROM users WHERE user_id != $1 AND is_active = true`
-      // let query = `SELECT * FROM users WHERE user_id != $1 AND is_active = true AND category = 'factory'`
-      // if (category === 'shop') {
-      //   query = `SELECT * FROM users WHERE user_id != $1 AND is_active = true AND category = 'shop'`
-      // }
 
       const result = await db.query(query, [userId])
 
-      const newsData = result.rows
-      return newsData
+      const partnersData = result.rows
+
+      return partnersData
     } catch (error) {
       console.log('Error: Get news data', error)
+      return []
     }
   }
 
-  async activateUser(userId: string, isActiveData: any): Promise<any> {
+  async activateUser(userId: string | undefined, isActiveData: boolean): Promise<IServerResponseSuccess | IServerResponseError> {
     const db = await pool.connect()
 
     try {
       const query = 'UPDATE users SET is_active = $1 WHERE user_id = $2'
-      const result = await db.query(query, [isActiveData, userId])
+      await db.query(query, [isActiveData, userId])
 
-      return result
+      return {
+        message: isActiveData
+          ? 'User activated successfully!'
+          : 'User deactivated successfully!',
+      }
     } catch (error) {
-      console.log('Error: Get news data', error)
+      console.log('Error: Get news data', error);
+
+      const castedError = error as Error;
+
+      return {
+        message: 'Error occurred while activating/deactivating user.',
+        error: castedError.message,
+      };
     }
   }
 }
