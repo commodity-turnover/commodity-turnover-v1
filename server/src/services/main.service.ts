@@ -79,9 +79,9 @@ export default class UserService {
             userRegistrationData.phone,
             hash,
             userRegistrationData.description,
-            new Date().toISOString(),
             userRegistrationData.address,
             true,
+            new Date().toISOString(),
           ])
 
           const token = createToken(userId)

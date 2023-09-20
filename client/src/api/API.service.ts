@@ -180,3 +180,23 @@ export const postActivate = async (isActive: boolean) => {
   }
 }
 
+
+export const deleteAccount = async () => {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    return
+  }
+
+  try {
+    const response = await axios.delete(`${BASE_URL}/delete-account`, {
+      headers: {
+        'access-token': token,
+      },
+    })
+
+    return response.data;
+  } catch (error) {
+    console.error('Error - Deleting Account', error)
+  }
+}

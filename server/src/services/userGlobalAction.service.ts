@@ -63,4 +63,25 @@ export default class UserGlobalActionService {
       };
     }
   }
+  
+  
+  async deleteAccount(userId: string | undefined): Promise<IServerResponseSuccess | IServerResponseError> {
+    const db = await pool.connect()
+    
+    try {
+      const query = 'DELETE FROM users WHERE user_id = $1'
+      await db.query(query, [userId])
+
+      return {message: "Account deleted successfully!"}
+    } catch (error) {
+      console.log('Error: Deleting account!', error);
+
+      const castedError = error as Error;
+
+      return {
+        message: 'Error occurred while Deleting account.',
+        error: castedError.message,
+      };
+    }
+  }
 }

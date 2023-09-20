@@ -32,7 +32,7 @@ const TabAction = (props: any) => {
       tabContent = <SearchPartners />;
       break;
     case "settings":
-      tabContent = <Settings />;
+      tabContent = <Settings toggleModal={props.toggleModal} />;
       break;
     default:
       tabContent = <News />;

@@ -1,5 +1,6 @@
 .settings {
     fieldset {
+        margin-bottom: 20px;
         padding: 20px;
         border: 2px solid;
 
@@ -16,6 +17,16 @@
         padding: 3px 5px;
         border: 1px solid;
         cursor: pointer;
+    }
+
+    .deleteAccount {
+        button {
+            padding: 5px 13px;
+            color: red;
+            border-color: red;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     }
 }
 

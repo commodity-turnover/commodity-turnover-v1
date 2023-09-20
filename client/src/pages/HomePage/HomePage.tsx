@@ -12,6 +12,7 @@ import defaultFactoryImg from "../../assets/images/factory-default-img.jpg";
 import styles from "./homePage.module.scss";
 import { setUser } from "../../redux/features/user/userSlice";
 import { RootState } from "../../redux/types";
+import DeleteAccountModal from "../../components/UI/Modals/DeleteAccountModal/DeleteAccountModal";
 
 const HomePage = () => {
   const [selectedProductData, setSelectedProductData] = useState(null);
@@ -147,6 +148,11 @@ const HomePage = () => {
           toggleModal={toggleModal}
           setProducts={setProducts}
           selectedProductData={selectedProductData}
+        />
+      )}
+      {isOpenModal === "deleteAccount" && (
+        <DeleteAccountModal
+          toggleModal={toggleModal}
         />
       )}
     </div>

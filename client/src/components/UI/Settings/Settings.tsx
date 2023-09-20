@@ -7,7 +7,7 @@ import { setActiveData } from '../../../redux/features/user/userSlice';
 
 import styles from './settings.module.scss';
 
-const Settings = () => {
+const Settings = (props: any) => {
   const dispatch = useDispatch();
   const isActiveUser = useSelector(
     (state: RootState) => state.user.userData?.is_active
@@ -27,6 +27,10 @@ const Settings = () => {
     dispatch(setActiveData());
     // }
   };
+
+  const handleDeleteAccount = () => {
+    props.toggleModal("deleteAccount")
+  }
 
   return (
     <div className={styles.settings}>
@@ -63,6 +67,18 @@ const Settings = () => {
             onChange={handleActivateUser}
             className={isActiveVal && styles.isActive}
           />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Update User data</legend>
+        <div>
+
+        </div>
+      </fieldset>
+      <fieldset className={styles.deleteAccount}>
+        <legend>Delete Account</legend>
+        <div>
+          <button onClick={handleDeleteAccount}>Delete Account</button>
         </div>
       </fieldset>
     </div>
