@@ -13,6 +13,7 @@ import styles from "./homePage.module.scss";
 import { setUser } from "../../redux/features/user/userSlice";
 import { RootState } from "../../redux/types";
 import DeleteAccountModal from "../../components/UI/Modals/DeleteAccountModal/DeleteAccountModal";
+import CarouselComponent from "../../components/UI/CarouselComponent/CarouselComponent";
 
 const HomePage = () => {
   const [selectedProductData, setSelectedProductData] = useState(null);
@@ -64,7 +65,9 @@ const HomePage = () => {
         )}
       </aside>
       <div className={styles.mainContent}>
-        <div className={styles.ads}>NEWS / ADS</div>
+        <div className={styles.ads}>
+          <CarouselComponent />
+        </div>
         <div className={styles.subContent}>
           <nav className={styles.tabBar}>
             <ul>

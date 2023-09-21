@@ -22,10 +22,14 @@ export class UserGlobalActionController {
     res.status(200).json(response)
   })
 
-  deleteAccount = errorHandler(async (req: Request, res: Response) => {
-    console.log('id ===>>> ', req.userId);
+  updateAccount = errorHandler(async (req: Request, res: Response) => {
+    console.log();
     
+    const response = await this.userGlobalActionService.updateAccount(req.userId, req.body)    
+    res.status(200).json(response)
+  })
 
+  deleteAccount = errorHandler(async (req: Request, res: Response) => {
     const response = await this.userGlobalActionService.deleteAccount(req.userId)
     res.status(200).json(response)
   })

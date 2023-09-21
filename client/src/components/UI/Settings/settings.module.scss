@@ -5,18 +5,28 @@
         border: 2px solid;
 
         legend {
+            margin-bottom: 20px;
             font-weight: bold;
+            font-size: 24px;
         }
     }
 
-    input {
-        display: none;
+    .updateUserDataForm {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
     }
 
-    label {
-        padding: 3px 5px;
-        border: 1px solid;
-        cursor: pointer;
+    .activateSection {        
+            input[type="radio"] {
+                display: none;
+            }
+        
+            label {
+                padding: 3px 5px;
+                border: 1px solid;
+                cursor: pointer;
+            }
     }
 
     .deleteAccount {

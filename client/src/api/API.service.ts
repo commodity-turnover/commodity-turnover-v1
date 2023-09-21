@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import { BASE_URL } from '../constants/const'
+import { IUserData } from '../Interfaces/interfaces'
 
 export const getUser = async () => {
   const token = localStorage.getItem('token')
@@ -196,6 +197,26 @@ export const deleteAccount = async () => {
     })
 
     return response.data;
+  } catch (error) {
+    console.error('Error - Deleting Account', error)
+  }
+}
+
+export const updateUserData = async (userDate: IUserData) => {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    return
+  }
+
+  try {
+    const response = await axios.post(`${BASE_URL}/update-account`, userDate, {
+      headers: {
+        'access-token': token,
+      },
+    })
+
+    return response;
   } catch (error) {
     console.error('Error - Deleting Account', error)
   }

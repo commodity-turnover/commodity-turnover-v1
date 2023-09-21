@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-import { initialFormData } from "../../constants/const";
-import Button from "../../components/forms/Button/Button";
+import { initialFormData } from '../../constants/const';
+import Button from '../../components/forms/Button/Button';
 
-import styles from './registrationPage.module.scss'
+import styles from './registrationPage.module.scss';
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState(initialFormData);
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState(null);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+  function handleChange(
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) {
     setFormData((prev) => {
       return {
         ...prev,
@@ -20,29 +24,32 @@ const RegistrationPage = () => {
     });
   }
 
-  function handleFileChange(event:any) {
+  function handleFileChange(event: any) {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
-  };
-
-  function handleSubmit(e:React. FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    axios.post('http://localhost:3001/registration', formData).then(res => {
-      if(res.status === 201) {
-        localStorage.setItem("token", res.data.token)
-        navigate("/home")
-      }
-    }).catch(error => {
-      console.error("Registreation Error: ", error);
-    });
   }
 
-  const token = localStorage.getItem("token");
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    axios
+      .post('http://localhost:3001/registration', formData)
+      .then((res) => {
+        if (res.status === 201) {
+          localStorage.setItem('token', res.data.token);
+          navigate('/home');
+        }
+      })
+      .catch((error) => {
+        console.error('Registreation Error: ', error);
+      });
+  }
+
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
-  
-  useEffect(() => {    
+
+  useEffect(() => {
     if (token) {
-      navigate("/home")
+      navigate('/home');
     }
   }, []);
 
@@ -52,7 +59,7 @@ const RegistrationPage = () => {
         <div className={styles.loginContainer}>
           <div className={styles.formContainer}>
             <h1 className={styles.opacity}>Sign Up</h1>
-            <form onSubmit={handleSubmit} encType="m">
+            <form onSubmit={handleSubmit}>
               <label htmlFor="orgName">Organization Name *</label>
               <input
                 type="text"
@@ -114,12 +121,24 @@ const RegistrationPage = () => {
                 onChange={handleChange}
               />
               <label htmlFor="repeatPassword">REPEAT PASSWORD *</label>
-              <input type="password" id="repeatPassword" name="repeatPassword" placeholder="REPEAT PASSWORD *" />
+              <input
+                type="password"
+                id="repeatPassword"
+                name="repeatPassword"
+                placeholder="REPEAT PASSWORD *"
+              />
               <label htmlFor="orgLogo">Add Organization Logo</label>
               <input type="file" name="orgLogo" onChange={handleFileChange} />
               <label htmlFor="description">DESCRIPTION</label>
-              <textarea placeholder="DESCRIPTION" name="description" onChange={handleChange}/>
-              <Button buttonType="btn" type="submit">SUBMIT</Button>
+              <textarea
+                placeholder="DESCRIPTION"
+                id="description"
+                name="description"
+                onChange={handleChange}
+              />
+              <Button buttonType="btn" type="submit">
+                SUBMIT
+              </Button>
             </form>
           </div>
         </div>

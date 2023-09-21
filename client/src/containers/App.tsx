@@ -2,6 +2,7 @@ import Router from "../routes/Router";
 import Header from "../components/UI/Header/Header";
 import Footer from "../components/UI/Footer/Footer";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 import "../assets/styles/reset.scss";
 import "../assets/styles/global.scss";

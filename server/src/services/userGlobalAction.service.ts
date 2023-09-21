@@ -65,6 +65,30 @@ export default class UserGlobalActionService {
   }
   
   
+  // async updateAccount(userId: string | undefined, userData: any): Promise<IServerResponseSuccess | IServerResponseError> {
+  async updateAccount(userId: string | undefined, userData: any): Promise<any> {
+    const db = await pool.connect()
+
+    const {org_name, username, email, phone_number, description, address } = userData
+    
+    try {
+      const query = 'UPDATE users SET org_name = $1, username = $2, email = $3, phone_number = $4, description = $5, address = $6 WHERE user_id = $7'
+      await db.query(query, [org_name, username, email, phone_number, description, address, userId])
+
+      return {message: "Account updated successfully!"}
+    } catch (error) {
+      console.log('Error: Updating account!', error);
+
+      const castedError = error as Error;
+
+      return {
+        message: 'Error occurred while Updating account.',
+        error: castedError.message,
+      };
+    }
+  }
+
+
   async deleteAccount(userId: string | undefined): Promise<IServerResponseSuccess | IServerResponseError> {
     const db = await pool.connect()
     

@@ -49,7 +49,7 @@ const Product = (props: any) => {
       </div>
       <div className={styles.productContent}>
         <div className={styles.productInfoWrapper}>
-          <h2>Model: {name}</h2>
+          <h2>{name}</h2>
           <p>Price: $ {price}</p>
           <p>Count: {product_count}</p>
         </div>
