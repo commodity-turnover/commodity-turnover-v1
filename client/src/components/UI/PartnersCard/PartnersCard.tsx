@@ -1,10 +1,10 @@
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
-import CardHOC from "../../../shared/CardHOC/CardHOC";
+import CardHOC from '../../../shared/CardHOC/CardHOC';
 
-import defaultFactoryImg from "../../../assets/images/factory-default-img.jpg";
+import defaultFactoryImg from '../../../assets/images/factory-default-img.jpg';
 
-import styles from "./partnersCard.module.scss";
+import styles from './partnersCard.module.scss';
 
 const PartnersCard = (props: any) => {
   const {
@@ -18,7 +18,7 @@ const PartnersCard = (props: any) => {
   } = props.partnerData;
   const parsedDate = new Date(creationtimestamp);
 
-  const formattedDate = format(parsedDate, "MMMM d, yyyy");
+  const formattedDate = format(parsedDate, 'MMMM d, yyyy');
   return (
     <CardHOC>
       <div className={styles.partnersCard}>

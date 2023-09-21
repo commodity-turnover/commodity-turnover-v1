@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import { useEffect, useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 
-import { getPartners } from "../../../api/API.service";
-import PartnersCard from "../PartnersCard/PartnersCard";
+import { getPartners } from '../../../api/API.service';
+import PartnersCard from '../PartnersCard/PartnersCard';
 
-import styles from "./searchPartners.module.scss";
+import styles from './searchPartners.module.scss';
 
 const SearchPartners = () => {
   const [partners, setPartners] = useState([]);
@@ -17,7 +17,7 @@ const SearchPartners = () => {
         setPartners(getPartnersData);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error);
       }
     };
 

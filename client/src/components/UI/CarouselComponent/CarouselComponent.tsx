@@ -1,7 +1,6 @@
 import Carousel from 'react-bootstrap/Carousel';
 import defaultImg from "../../../assets/images/ads/FFF.png"
 
-
 const CarouselComponent = () => {
   return (
     <Carousel>

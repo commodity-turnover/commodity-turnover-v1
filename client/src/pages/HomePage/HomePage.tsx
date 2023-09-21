@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { RootState } from "../../redux/types";
+import { getUser } from "../../api/API.service";
+import { setUser } from "../../redux/features/user/userSlice";
+import TabAction from "../../components/UI/TabAction/TabAction";
+import defaultFactoryImg from "../../assets/images/factory-default-img.jpg";
+import CarouselComponent from "../../components/UI/CarouselComponent/CarouselComponent";
+import AddProductModal from "../../components/UI/Modals/AddProductModal/AddProductModal";
 import UpdateProductModal from "../../components/UI/Modals/UpdateProductModal/UpdateProductModal";
 import ProductDetailModal from "../../components/UI/Modals/ProductDetailModal/ProductDetailModal";
-import AddProductModal from "../../components/UI/Modals/AddProductModal/AddProductModal";
-import TabAction from "../../components/UI/TabAction/TabAction";
-import { getUser } from "../../api/API.service";
-
-import defaultFactoryImg from "../../assets/images/factory-default-img.jpg";
+import DeleteAccountModal from "../../components/UI/Modals/DeleteAccountModal/DeleteAccountModal";
 
 import styles from "./homePage.module.scss";
-import { setUser } from "../../redux/features/user/userSlice";
-import { RootState } from "../../redux/types";
-import DeleteAccountModal from "../../components/UI/Modals/DeleteAccountModal/DeleteAccountModal";
-import CarouselComponent from "../../components/UI/CarouselComponent/CarouselComponent";
 
 const HomePage = () => {
   const [selectedProductData, setSelectedProductData] = useState(null);
@@ -123,12 +122,12 @@ const HomePage = () => {
           </nav>
           <div>
             <TabAction
+              products={products}
               tabName={tabContent}
               toggleModal={toggleModal}
-              products={products}
               setProducts={setProducts}
-              setSelectedProductData={setSelectedProductData}
               setLoadingProduct={setLoadingProduct}
+              setSelectedProductData={setSelectedProductData}
             />
           </div>
           <div></div>

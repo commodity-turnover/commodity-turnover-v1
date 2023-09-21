@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Accordion from 'react-bootstrap/Accordion';
+import { useDispatch, useSelector } from 'react-redux';
 
+import Button from '../../forms/Button/Button';
 import { RootState } from '../../../redux/types';
+import { IUserData } from '../../../Interfaces/interfaces';
 import { postActivate, updateUserData } from '../../../api/API.service';
 import { setActiveData, setUser } from '../../../redux/features/user/userSlice';
 
 import styles from './settings.module.scss';
-import Button from '../../forms/Button/Button';
-import { IUserData } from '../../../Interfaces/interfaces';
 
 const Settings = (props: any) => {
   const dispatch = useDispatch();
@@ -74,12 +74,12 @@ const Settings = (props: any) => {
             Activate
           </label>
           <input
-            type="radio"
             id="active"
+            type="radio"
             value="active"
             name="is_active"
-            checked={isActiveVal === 'active'}
             onChange={handleActivateUser}
+            checked={isActiveVal === 'active'}
           />
           <label
             htmlFor="deactive"
@@ -92,8 +92,8 @@ const Settings = (props: any) => {
             id="deactive"
             value="deactive"
             name="is_active"
-            checked={isActiveVal === 'deactive'}
             onChange={handleActivateUser}
+            checked={isActiveVal === 'deactive'}
             className={isActiveVal && styles.isActive}
           />
         </div>
@@ -112,53 +112,53 @@ const Settings = (props: any) => {
                   <label htmlFor="orgName">Organization Name</label>
                   <input
                     type="text"
-                    placeholder="ex. Degusto"
-                    name="org_name"
                     id="orgName"
-                    onChange={handleChangeUpdatedData}
+                    name="org_name"
+                    placeholder="ex. Degusto"
                     value={updatedFormData.org_name}
+                    onChange={handleChangeUpdatedData}
                   />
                   <label htmlFor="username">USERNAME</label>
                   <input
                     type="text"
-                    placeholder="ex. poghos001"
                     id="username"
                     name="username"
-                    onChange={handleChangeUpdatedData}
+                    placeholder="ex. poghos001"
                     value={updatedFormData.username}
+                    onChange={handleChangeUpdatedData}
                   />
                   <label htmlFor="email">EMAIL</label>
                   <input
-                    type="text"
-                    placeholder="ex. test@gmail.com *"
                     id="email"
+                    type="text"
                     name="email"
-                    onChange={handleChangeUpdatedData}
                     value={updatedFormData.email}
+                    placeholder="ex. test@gmail.com *"
+                    onChange={handleChangeUpdatedData}
                   />
                   <label htmlFor="phone">PHONE NUMBER</label>
                   <input
-                    type="text"
-                    placeholder="ex. +374 33 123 456 *"
                     id="phone"
+                    type="text"
                     name="phone_number"
                     onChange={handleChangeUpdatedData}
+                    placeholder="ex. +374 33 123 456 *"
                     value={updatedFormData.phone_number}
                   />
                   <label htmlFor="address">Address</label>
                   <input
                     type="text"
-                    placeholder="Ex. Yerevan, Abovyan 999 *"
                     id="address"
                     name="address"
-                    onChange={handleChangeUpdatedData}
                     value={updatedFormData.address}
+                    onChange={handleChangeUpdatedData}
+                    placeholder="Ex. Yerevan, Abovyan 999 *"
                   />
                   <label htmlFor="description">DESCRIPTION</label>
                   <textarea
-                    placeholder="DESCRIPTION"
-                    name="description"
                     id="description"
+                    name="description"
+                    placeholder="DESCRIPTION"
                     onChange={handleChangeUpdatedData}
                     value={updatedFormData.description}
                   />
@@ -177,26 +177,26 @@ const Settings = (props: any) => {
                 >
                   <label htmlFor="oldPass">Old Password</label>
                   <input
+                    id="oldPass"
+                    name="oldPass"
                     type="password"
                     placeholder="123456"
-                    name="oldPass"
-                    id="oldPass"
                     onChange={handleChangeUpdatedData}
                   />
                   <label htmlFor="newPass">New Password</label>
                   <input
+                    id="newPass"
+                    name="newPass"
                     type="password"
                     placeholder="654321"
-                    name="newPass"
-                    id="newPass"
                     onChange={handleChangeUpdatedData}
                   />
                   <label htmlFor="newPassRepeat">Repeat new Password</label>
                   <input
                     type="password"
+                    id="newPassRepeat"
                     placeholder="654321"
                     name="newPassRepeat"
-                    id="newPassRepeat"
                     onChange={handleChangeUpdatedData}
                   />
                   <Button buttonType="btn" type="submit">

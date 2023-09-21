@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import { useEffect, useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 
-import { getNewsData } from "../../../api/API.service";
-import NewsBlock from "../NewsBlock/NewsBlock";
+import { getNewsData } from '../../../api/API.service';
+import NewsBlock from '../NewsBlock/NewsBlock';
 
-import styles from "./news.module.scss";
+import styles from './news.module.scss';
 
 const News = () => {
   const [news, setNews] = useState([]);

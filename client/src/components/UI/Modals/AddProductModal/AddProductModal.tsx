@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Modal from "../../../../shared/Modals/ModalHOC";
-import { initialProductData } from "../../../../constants/const";
+import { createProduct, getAllProducts } from '../../../../api/API.service';
+import { initialProductData } from '../../../../constants/const';
+import Modal from '../../../../shared/Modals/ModalHOC';
 
-import styles from "./addProductModal.module.scss";
-import { createProduct, getAllProducts } from "../../../../api/API.service";
+import styles from './addProductModal.module.scss';
 
 const AddProductModal = (props: any) => {
   const [productData, setProductData] = useState(initialProductData);
@@ -28,9 +28,9 @@ const AddProductModal = (props: any) => {
       const getProducts = await getAllProducts('', '');
       props.setProducts(getProducts);
       console.log('Product created:', createdProduct);
-      props.toggleModal("");
+      props.toggleModal('');
     } catch (error) {
-      console.error('Error creating product', error)
+      console.error('Error creating product', error);
     }
   };
 
@@ -41,24 +41,24 @@ const AddProductModal = (props: any) => {
         <div className={styles.inputWrapper}>
           <label htmlFor="name">Name</label>
           <input
-            type="text"
             id="name"
-            placeholder="Name"
             name="name"
+            type="text"
+            placeholder="Name"
             onChange={handleChange}
           />
           <label htmlFor="price">Price</label>
           <input
-            type="number"
             id="price"
-            placeholder="Price"
             name="price"
+            type="number"
+            placeholder="Price"
             onChange={handleChange}
           />
           <label htmlFor="count">Count</label>
           <input
-            type="number"
             id="count"
+            type="number"
             placeholder="Count"
             name="product_count"
             onChange={handleChange}
@@ -66,8 +66,8 @@ const AddProductModal = (props: any) => {
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
-            placeholder="Description..."
             name="description"
+            placeholder="Description..."
             onChange={handleChange}
           />
         </div>

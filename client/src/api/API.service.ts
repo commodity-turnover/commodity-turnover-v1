@@ -1,7 +1,36 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 import { BASE_URL } from '../constants/const'
-import { IUserData } from '../Interfaces/interfaces'
+import {
+  ILoginUser,
+  IRegistrationData,
+  IUserData,
+} from '../Interfaces/interfaces'
+
+export const loginUser = async (loginData: ILoginUser) => {
+  try {
+    const response = await axios.post('http://localhost:3001/login', loginData)
+    return response
+  } catch (error) {
+    console.error('Error - login user', error)
+  }
+}
+
+export const registerUser = async (
+  formData: IRegistrationData,
+): Promise<AxiosResponse<any>> => {
+  try {
+    const response = await axios.post(
+      'http://localhost:3001/registration',
+      formData,
+    )
+    return response
+  } catch (error) {
+    // console.error("Error - registration user", error)
+    // return { error: "Registration failed" };
+    throw error
+  }
+}
 
 export const getUser = async () => {
   const token = localStorage.getItem('token')
@@ -131,7 +160,6 @@ export const deleteProduct = async (product_id: any) => {
   }
 }
 
-
 export const getNewsData = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/news`)
@@ -169,18 +197,21 @@ export const postActivate = async (isActive: boolean) => {
   }
 
   try {
-    const response = await axios.post(`${BASE_URL}/activate`, {isActive}, {
-      headers: {
-        'access-token': token,
+    const response = await axios.post(
+      `${BASE_URL}/activate`,
+      { isActive },
+      {
+        headers: {
+          'access-token': token,
+        },
       },
-    })
+    )
 
     return response.data
   } catch (error) {
     console.error('Error - Get user data!', error)
   }
 }
-
 
 export const deleteAccount = async () => {
   const token = localStorage.getItem('token')
@@ -196,7 +227,7 @@ export const deleteAccount = async () => {
       },
     })
 
-    return response.data;
+    return response.data
   } catch (error) {
     console.error('Error - Deleting Account', error)
   }
@@ -216,7 +247,7 @@ export const updateUserData = async (userDate: IUserData) => {
       },
     })
 
-    return response;
+    return response
   } catch (error) {
     console.error('Error - Deleting Account', error)
   }

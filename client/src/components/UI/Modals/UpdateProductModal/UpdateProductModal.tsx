@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Modal from "../../../../shared/Modals/ModalHOC";
+import Modal from '../../../../shared/Modals/ModalHOC';
+import { getAllProducts, updateProduct } from '../../../../api/API.service';
 
-import styles from "./updateProductModal.module.scss";
-import { getAllProducts, updateProduct } from "../../../../api/API.service";
+import styles from './updateProductModal.module.scss';
 
 const UpdateProductModal = (props: any) => {
   const [productData, setProductData] = useState(props.selectedProductData);
@@ -24,11 +24,11 @@ const UpdateProductModal = (props: any) => {
   const handleUpdate = async () => {
     try {
       const response = await updateProduct(productData);
-      const getProducts = await getAllProducts("", "");
+      const getProducts = await getAllProducts('', '');
       props.setProducts(getProducts);
       console.log(response);
 
-      props.toggleModal("");
+      props.toggleModal('');
     } catch (error) {
       console.error(error);
     }
@@ -41,38 +41,38 @@ const UpdateProductModal = (props: any) => {
         <div className={styles.inputWrapper}>
           <label htmlFor="name">Name</label>
           <input
-            type="text"
             id="name"
-            placeholder="Name"
             name="name"
-            value={productData.name}
+            type="text"
+            placeholder="Name"
             onChange={handleChange}
+            value={productData.name}
           />
           <label htmlFor="price">Price</label>
           <input
-            type="number"
             id="price"
-            placeholder="Price"
             name="price"
-            value={productData.price}
+            type="number"
+            placeholder="Price"
             onChange={handleChange}
+            value={productData.price}
           />
           <label htmlFor="count">Count</label>
           <input
-            type="number"
             id="count"
+            type="number"
             placeholder="Count"
             name="product_count"
-            value={productData.product_count}
             onChange={handleChange}
+            value={productData.product_count}
           />
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
-            placeholder="Description..."
             name="description"
-            value={productData.description}
             onChange={handleChange}
+            placeholder="Description..."
+            value={productData.description}
           />
         </div>
         <button onClick={() => handleUpdate()}>Update</button>

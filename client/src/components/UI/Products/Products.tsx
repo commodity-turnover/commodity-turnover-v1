@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import { useEffect, useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 
-import { getAllProducts } from "../../../api/API.service";
-import Product from "../Product/Product";
+import Product from '../Product/Product';
+import { getAllProducts } from '../../../api/API.service';
 
-import styles from "./products.module.scss";
+import styles from './products.module.scss';
 
 const Products = (props: any) => {
-  const [sortType, setSortType] = useState<string>("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [sortType, setSortType] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
 
   const {
@@ -30,7 +30,7 @@ const Products = (props: any) => {
         setProducts(productsData);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error);
       }
     };
     fetchProducts();
@@ -51,7 +51,7 @@ const Products = (props: any) => {
         <div className={styles.addProduct}>
           <button
             onClick={() => {
-              toggleModal("add");
+              toggleModal('add');
             }}
           ></button>
         </div>
@@ -66,8 +66,7 @@ const Products = (props: any) => {
           </option>
           <option value="lastDateAsc">Old Date</option>
           <option value="lastDateDesc">Last Date</option>
-          <option value="nameAsc">Name (Ascending)</option>{" "}
-          {/* from down to top - աճող*/}
+          <option value="nameAsc">Name (Ascending)</option>{' '}
           <option value="nameDesc">Name (Descending)</option>
           <option value="priceAsc">Price (Ascending)</option>
           <option value="priceDesc">Price (Descending)</option>

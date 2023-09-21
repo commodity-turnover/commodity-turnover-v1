@@ -1,14 +1,13 @@
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
-import newsDefaultImg from "../../../assets/images/news-default.png";
+import newsDefaultImg from '../../../assets/images/news-default.png';
 
-import styles from "./newsBlock.module.scss";
+import styles from './newsBlock.module.scss';
 
 const NewsBlock = (props: any) => {
-
   const parsedDate = new Date(props.newsData.creationtimestamp);
 
-  const formattedDate = format(parsedDate, "hh:mm:ss / MMMM d, yyyy");
+  const formattedDate = format(parsedDate, 'hh:mm:ss / MMMM d, yyyy');
   return (
     <div className={styles.newsBlock}>
       <div className={styles.newsTitle}>

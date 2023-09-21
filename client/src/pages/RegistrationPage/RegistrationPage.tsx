@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
-import { initialFormData } from '../../constants/const';
 import Button from '../../components/forms/Button/Button';
+import { initialFormData } from '../../constants/const';
+import { registerUser } from '../../api/API.service';
 
 import styles from './registrationPage.module.scss';
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState(initialFormData);
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
 
   function handleChange(
     e: React.ChangeEvent<
@@ -24,24 +24,22 @@ const RegistrationPage = () => {
     });
   }
 
-  function handleFileChange(event: any) {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-  }
+  // function handleFileChange(event: any) {
+  //   const selectedFile = event.target.files[0];
+  //   setFile(selectedFile);
+  // }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    axios
-      .post('http://localhost:3001/registration', formData)
-      .then((res) => {
-        if (res.status === 201) {
-          localStorage.setItem('token', res.data.token);
-          navigate('/home');
-        }
-      })
-      .catch((error) => {
-        console.error('Registreation Error: ', error);
-      });
+    try {
+      const res = await registerUser(formData);
+      if (res.status === 201) {
+        localStorage.setItem('token', res.data.token);
+        navigate('/home');
+      }
+    } catch (error) {
+      console.error('Registration Error: ', error);
+    }
   }
 
   const token = localStorage.getItem('token');
@@ -51,6 +49,7 @@ const RegistrationPage = () => {
     if (token) {
       navigate('/home');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -63,24 +62,24 @@ const RegistrationPage = () => {
               <label htmlFor="orgName">Organization Name *</label>
               <input
                 type="text"
-                placeholder="ex. Degusto"
-                name="orgName"
                 id="orgName"
+                name="orgName"
                 onChange={handleChange}
+                placeholder="ex. Degusto"
               />
               <label htmlFor="username">USERNAME *</label>
               <input
                 type="text"
-                placeholder="ex. poghos001"
                 id="username"
                 name="username"
                 onChange={handleChange}
+                placeholder="ex. poghos001"
               />
 
               <label htmlFor="category">CATEGORY *</label>
               <select
-                name="category"
                 id="category"
+                name="category"
                 onChange={handleChange}
                 value={formData.category}
               >
@@ -90,35 +89,35 @@ const RegistrationPage = () => {
 
               <label htmlFor="email">EMAIL *</label>
               <input
-                type="text"
-                placeholder="ex. test@gmail.com *"
                 id="email"
+                type="text"
                 name="email"
                 onChange={handleChange}
+                placeholder="ex. test@gmail.com *"
               />
               <label htmlFor="phone">PHONE NUMBER *</label>
               <input
-                type="text"
-                placeholder="ex. +374 33 123 456 *"
                 id="phone"
+                type="text"
                 name="phone"
                 onChange={handleChange}
+                placeholder="ex. +374 33 123 456 *"
               />
               <label htmlFor="address">Address *</label>
               <input
                 type="text"
-                placeholder="Ex. Yerevan, Abovyan 999 *"
                 id="address"
                 name="address"
                 onChange={handleChange}
+                placeholder="Ex. Yerevan, Abovyan 999 *"
               />
               <label htmlFor="password">PASSWORD *</label>
               <input
-                type="password"
                 id="password"
-                placeholder="PASSWORD *"
+                type="password"
                 name="password"
                 onChange={handleChange}
+                placeholder="PASSWORD *"
               />
               <label htmlFor="repeatPassword">REPEAT PASSWORD *</label>
               <input
@@ -128,13 +127,14 @@ const RegistrationPage = () => {
                 placeholder="REPEAT PASSWORD *"
               />
               <label htmlFor="orgLogo">Add Organization Logo</label>
-              <input type="file" name="orgLogo" onChange={handleFileChange} />
+              {/* <input type="file" name="orgLogo" onChange={handleFileChange} /> */}
+              <input type="file" name="orgLogo" />
               <label htmlFor="description">DESCRIPTION</label>
               <textarea
-                placeholder="DESCRIPTION"
                 id="description"
                 name="description"
                 onChange={handleChange}
+                placeholder="DESCRIPTION"
               />
               <Button buttonType="btn" type="submit">
                 SUBMIT
