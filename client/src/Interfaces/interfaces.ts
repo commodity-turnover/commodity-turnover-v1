@@ -24,3 +24,11 @@ export interface IRegistrationData {
   password: string,
   description: string,
 }
+export interface IValidation {
+  orgName?: string,
+  username?: string,
+  email?: string,
+  phone?: string,
+  password?: string,
+  description?: string,
+}

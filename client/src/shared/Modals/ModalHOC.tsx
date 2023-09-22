@@ -1,6 +1,6 @@
-import closeBtn from "../../assets/images/closeBtn.svg";
+import closeBtn from '../../assets/images/closeBtn.svg';
 
-import styles from "./modalHOC.module.scss";
+import styles from './modalHOC.module.scss';
 
 const Modal = (props: any) => {
   return (

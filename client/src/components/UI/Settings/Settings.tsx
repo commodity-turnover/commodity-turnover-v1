@@ -9,11 +9,14 @@ import { postActivate, updateUserData } from '../../../api/API.service';
 import { setActiveData, setUser } from '../../../redux/features/user/userSlice';
 
 import styles from './settings.module.scss';
+import { updateDataValidations } from '../../../helpers/validation';
 
 const Settings = (props: any) => {
+  let isDisable = false;
   const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState<any>({});
   const userData = useSelector((state: RootState) => state.user.userData);
-  const [updatedFormData, setUpdatedFormData] = useState<IUserData>(
+  const [updatedFormData, setUpdatedFormData] = useState<any>(
     userData || {}
   );
 
@@ -36,18 +39,41 @@ const Settings = (props: any) => {
     props.toggleModal('deleteAccount');
   };
 
+  function onChange(name: string, value: string | number) {
+    console.log(name, value);
+    
+    setUpdatedFormData((prev: any) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  }
+
   function handleChangeUpdatedData(
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) {
-    setUpdatedFormData((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.value,
-      };
-    });
+    const { name, value } = e.target;
+    onChange(name, value);
+    if (name !== 'address') {
+      setErrorMessage((prev: any) => {
+        return {
+          ...prev,
+          [name]: updateDataValidations[name](value),
+        };
+      });
+    }
   }
+
+  for (let key in updatedFormData as unknown as { [key: string]: string }) {
+    if (updatedFormData[key] === '' || errorMessage[key]) isDisable = true;
+  }
+
+  console.log("isDisable", isDisable);
+  console.log("updatedFormData", updatedFormData);
+  
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -113,11 +139,12 @@ const Settings = (props: any) => {
                   <input
                     type="text"
                     id="orgName"
-                    name="org_name"
+                    name="orgName"
                     placeholder="ex. Degusto"
                     value={updatedFormData.org_name}
                     onChange={handleChangeUpdatedData}
                   />
+                  <p className={styles.errorMsg}>{errorMessage['orgName']}</p>
                   <label htmlFor="username">USERNAME</label>
                   <input
                     type="text"
@@ -127,6 +154,7 @@ const Settings = (props: any) => {
                     value={updatedFormData.username}
                     onChange={handleChangeUpdatedData}
                   />
+                  <p className={styles.errorMsg}>{errorMessage['username']}</p>
                   <label htmlFor="email">EMAIL</label>
                   <input
                     id="email"
@@ -136,15 +164,17 @@ const Settings = (props: any) => {
                     placeholder="ex. test@gmail.com *"
                     onChange={handleChangeUpdatedData}
                   />
-                  <label htmlFor="phone">PHONE NUMBER</label>
+                  <p className={styles.errorMsg}>{errorMessage['email']}</p>
+                  <label htmlFor="phone_number">PHONE NUMBER</label>
                   <input
-                    id="phone"
+                    id="phone_number"
                     type="text"
                     name="phone_number"
                     onChange={handleChangeUpdatedData}
                     placeholder="ex. +374 33 123 456 *"
                     value={updatedFormData.phone_number}
                   />
+                  <p className={styles.errorMsg}>{errorMessage['phone_number']}</p>
                   <label htmlFor="address">Address</label>
                   <input
                     type="text"
@@ -154,6 +184,7 @@ const Settings = (props: any) => {
                     onChange={handleChangeUpdatedData}
                     placeholder="Ex. Yerevan, Abovyan 999 *"
                   />
+                  <p className={styles.errorMsg}>{errorMessage['address']}</p>
                   <label htmlFor="description">DESCRIPTION</label>
                   <textarea
                     id="description"
@@ -162,7 +193,8 @@ const Settings = (props: any) => {
                     onChange={handleChangeUpdatedData}
                     value={updatedFormData.description}
                   />
-                  <Button buttonType="btn" type="submit">
+                  <p className={styles.errorMsg}>{errorMessage['description']}</p>
+                  <Button buttonType="btn" type="submit" disabled={isDisable}>
                     SUBMIT
                   </Button>
                 </form>

@@ -6,10 +6,11 @@ interface MyComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode
 }
 
-const Button: React.FC<MyComponentProps> = ({buttonType, children, ...inputDefaultProps}) => {
+const Button: React.FC<MyComponentProps> = ({buttonType, children, disabled, ...inputDefaultProps}) => {
   return (
     <button 
-        className={styles[buttonType]} 
+        className={`${styles[buttonType]} ${disabled && styles.disabled}`} 
+        
         {...inputDefaultProps}
     >{children}</button>
   )

@@ -49,7 +49,7 @@ const HomePage = () => {
               <img src={defaultFactoryImg} alt="Factory img" />
             </li>
             <li>
-              <strong>Organisation: </strong> {userData.username}
+              <strong>Organisation: </strong> {userData.org_name}
             </li>
             <li>
               <strong>Email: </strong> {userData.email}

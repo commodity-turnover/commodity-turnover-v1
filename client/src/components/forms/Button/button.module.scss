@@ -24,3 +24,7 @@
 
 .secondary {}
 
+.disabled {
+    opacity: .6;
+    cursor: not-allowed !important;
+}

@@ -31,8 +31,8 @@
             select {
                 display: block;
                 padding: 14.5px;
-                width: calc(100% - 2rem);
-                margin: .3rem 0 2rem 0;
+                width: 100%;
+                margin: .3rem 0 .5rem 0;
                 color: var(--text-color);
                 outline: none;
                 background-color: #9191911f;
@@ -114,6 +114,11 @@
     .opacity {
         opacity: 0.6;
     }
+}
+
+.errorMsg {
+    color: #ff0000;
+    margin-bottom: 1.2rem ;
 }
 
 @keyframes wobble {

@@ -3,27 +3,47 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../components/forms/Button/Button';
 import { initialFormData } from '../../constants/const';
+import { signupValidations } from '../../helpers/validation';
 import { registerUser } from '../../api/API.service';
 
 import styles from './registrationPage.module.scss';
 
 const RegistrationPage = () => {
-  const [formData, setFormData] = useState(initialFormData);
+  let isDisable = false;
   // const [file, setFile] = useState(null);
+  const [formData, setFormData] = useState<any>(initialFormData);
+  const [errorMessage, setErrorMessage] = useState<any>({});
+
+  function onChange(name: string, value: string | number) {
+    setFormData((prev: any) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  }
 
   function handleChange(
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) {
-    setFormData((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.value,
-      };
-    });
+    const { name, value } = e.target;
+
+    onChange(name, value);
+    if (name !== 'address' && name !== 'repeatPassword') {
+      setErrorMessage((prev: any) => {
+        return {
+          ...prev,
+          [name]: signupValidations[name](value),
+        };
+      });
+    }
   }
 
+  for (let key in formData as unknown as { [key: string]: string }) {
+    if (formData[key] === '' || errorMessage[key]) isDisable = true;
+  }
   // function handleFileChange(event: any) {
   //   const selectedFile = event.target.files[0];
   //   setFile(selectedFile);
@@ -67,6 +87,7 @@ const RegistrationPage = () => {
                 onChange={handleChange}
                 placeholder="ex. Degusto"
               />
+              <p className={styles.errorMsg}>{errorMessage['orgName']}</p>
               <label htmlFor="username">USERNAME *</label>
               <input
                 type="text"
@@ -75,7 +96,7 @@ const RegistrationPage = () => {
                 onChange={handleChange}
                 placeholder="ex. poghos001"
               />
-
+              <p className={styles.errorMsg}>{errorMessage['username']}</p>
               <label htmlFor="category">CATEGORY *</label>
               <select
                 id="category"
@@ -86,6 +107,7 @@ const RegistrationPage = () => {
                 <option value="factory">Factory</option>
                 <option value="shop">Shop</option>
               </select>
+              <p className={styles.errorMsg}></p>
 
               <label htmlFor="email">EMAIL *</label>
               <input
@@ -95,6 +117,7 @@ const RegistrationPage = () => {
                 onChange={handleChange}
                 placeholder="ex. test@gmail.com *"
               />
+              <p className={styles.errorMsg}>{errorMessage['email']}</p>
               <label htmlFor="phone">PHONE NUMBER *</label>
               <input
                 id="phone"
@@ -103,6 +126,7 @@ const RegistrationPage = () => {
                 onChange={handleChange}
                 placeholder="ex. +374 33 123 456 *"
               />
+              <p className={styles.errorMsg}>{errorMessage['phone']}</p>
               <label htmlFor="address">Address *</label>
               <input
                 type="text"
@@ -111,6 +135,7 @@ const RegistrationPage = () => {
                 onChange={handleChange}
                 placeholder="Ex. Yerevan, Abovyan 999 *"
               />
+              <p className={styles.errorMsg}></p>
               <label htmlFor="password">PASSWORD *</label>
               <input
                 id="password"
@@ -119,6 +144,7 @@ const RegistrationPage = () => {
                 onChange={handleChange}
                 placeholder="PASSWORD *"
               />
+              <p className={styles.errorMsg}>{errorMessage['password']}</p>
               <label htmlFor="repeatPassword">REPEAT PASSWORD *</label>
               <input
                 type="password"
@@ -126,9 +152,13 @@ const RegistrationPage = () => {
                 name="repeatPassword"
                 placeholder="REPEAT PASSWORD *"
               />
+              <p className={styles.errorMsg}></p>
+
               <label htmlFor="orgLogo">Add Organization Logo</label>
               {/* <input type="file" name="orgLogo" onChange={handleFileChange} /> */}
               <input type="file" name="orgLogo" />
+              <p className={styles.errorMsg}></p>
+
               <label htmlFor="description">DESCRIPTION</label>
               <textarea
                 id="description"
@@ -136,7 +166,8 @@ const RegistrationPage = () => {
                 onChange={handleChange}
                 placeholder="DESCRIPTION"
               />
-              <Button buttonType="btn" type="submit">
+              <p className={styles.errorMsg}>{errorMessage['description']}</p>
+              <Button buttonType="btn" type="submit" disabled={isDisable}>
                 SUBMIT
               </Button>
             </form>
