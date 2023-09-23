@@ -74,7 +74,9 @@ const HomePage = (props: any) => {
               <li>
                 <NavLink
                   to="/home/messages"
-                  className={({ isActive }) => (isActive ? styles.active : '')}
+                  className={({ isActive, isPending }) =>
+                    isPending ? 'pending' : isActive ? styles.active : ''
+                  }
                 >
                   Messages
                 </NavLink>
@@ -82,7 +84,9 @@ const HomePage = (props: any) => {
               <li>
                 <NavLink
                   to="/home/analytics"
-                  className={({ isActive }) => (isActive ? styles.active : '')}
+                  className={({ isActive, isPending }) =>
+                    isPending ? 'pending' : isActive ? styles.active : ''
+                  }
                 >
                   Analytics
                 </NavLink>
@@ -90,7 +94,9 @@ const HomePage = (props: any) => {
               <li>
                 <NavLink
                   to="/home/nodes"
-                  className={({ isActive }) => (isActive ? styles.active : '')}
+                  className={({ isActive, isPending }) =>
+                    isPending ? 'pending' : isActive ? styles.active : ''
+                  }
                 >
                   Nodes
                 </NavLink>
@@ -98,7 +104,9 @@ const HomePage = (props: any) => {
               <li>
                 <NavLink
                   to="/home/history"
-                  className={({ isActive }) => (isActive ? styles.active : '')}
+                  className={({ isActive, isPending }) =>
+                    isPending ? 'pending' : isActive ? styles.active : ''
+                  }
                 >
                   History
                 </NavLink>

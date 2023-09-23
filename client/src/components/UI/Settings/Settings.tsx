@@ -39,9 +39,7 @@ const Settings = (props: any) => {
     props.toggleModal('deleteAccount');
   };
 
-  function onChange(name: string, value: string | number) {
-    console.log(name, value);
-    
+  function onChange(name: string, value: string | number) {    
     setUpdatedFormData((prev: any) => {
       return {
         ...prev,
@@ -69,11 +67,7 @@ const Settings = (props: any) => {
 
   for (let key in updatedFormData as unknown as { [key: string]: string }) {
     if (updatedFormData[key] === '' || errorMessage[key]) isDisable = true;
-  }
-
-  console.log("isDisable", isDisable);
-  console.log("updatedFormData", updatedFormData);
-  
+  }  
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
