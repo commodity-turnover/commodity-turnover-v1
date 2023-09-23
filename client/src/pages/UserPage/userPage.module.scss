@@ -1,0 +1,32 @@
+.userPage {
+  .ads {
+    border: 1px solid;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .subContent {
+    padding: 15px;
+    border: 1px solid;
+
+    .tabBar {
+      margin-bottom: 25px;
+
+      ul {
+        display: flex;
+        gap: 7px;
+
+        li {
+          cursor: pointer;
+        }
+      }
+
+      .selectedTab {
+        font-weight: bold;
+      }
+    }
+  }
+}

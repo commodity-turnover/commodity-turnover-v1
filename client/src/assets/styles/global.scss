@@ -5,3 +5,12 @@
     --primary-color: #0f3460;
     --orange-color: #FFA500;
   }
+
+  .main-content {
+    width: 78%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  

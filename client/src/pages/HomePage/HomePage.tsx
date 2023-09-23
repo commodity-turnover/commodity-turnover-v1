@@ -1,36 +1,21 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink, Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from "../../redux/types";
-import { getUser } from "../../api/API.service";
-import { setUser } from "../../redux/features/user/userSlice";
-import TabAction from "../../components/UI/TabAction/TabAction";
-import defaultFactoryImg from "../../assets/images/factory-default-img.jpg";
-import CarouselComponent from "../../components/UI/CarouselComponent/CarouselComponent";
-import AddProductModal from "../../components/UI/Modals/AddProductModal/AddProductModal";
-import UpdateProductModal from "../../components/UI/Modals/UpdateProductModal/UpdateProductModal";
-import ProductDetailModal from "../../components/UI/Modals/ProductDetailModal/ProductDetailModal";
-import DeleteAccountModal from "../../components/UI/Modals/DeleteAccountModal/DeleteAccountModal";
+import { RootState } from '../../redux/types';
+import { getUser } from '../../api/API.service';
+import { setUser } from '../../redux/features/user/userSlice';
+import defaultFactoryImg from '../../assets/images/factory-default-img.jpg';
+import AddProductModal from '../../components/UI/Modals/AddProductModal/AddProductModal';
+import UpdateProductModal from '../../components/UI/Modals/UpdateProductModal/UpdateProductModal';
+import ProductDetailModal from '../../components/UI/Modals/ProductDetailModal/ProductDetailModal';
+import DeleteAccountModal from '../../components/UI/Modals/DeleteAccountModal/DeleteAccountModal';
 
-import styles from "./homePage.module.scss";
+import styles from './homePage.module.scss';
 
-const HomePage = () => {
-  const [selectedProductData, setSelectedProductData] = useState(null);
-  const [loadingProduct, setLoadingProduct] = useState(true);
-  const [tabContent, setTabContent] = useState("news");
-  const [isOpenModal, setIsOpenModal] = useState("");
-  const [products, setProducts] = useState([]);
+const HomePage = (props: any) => {
   const dispatch = useDispatch();
-
   const userData = useSelector((state: RootState) => state.user.userData);
-
-  function handleTab(tabVal: string) {
-    setTabContent(tabVal);
-  }
-
-  function toggleModal(val: string) {
-    setIsOpenModal(val);
-  }
 
   useEffect(() => {
     async function fetchUserData() {
@@ -43,119 +28,110 @@ const HomePage = () => {
   return (
     <div className={styles.homePage}>
       <aside className={styles.leftSide}>
-        {userData && (
-          <ul>
-            <li>
-              <img src={defaultFactoryImg} alt="Factory img" />
-            </li>
-            <li>
-              <strong>Organisation: </strong> {userData.org_name}
-            </li>
-            <li>
-              <strong>Email: </strong> {userData.email}
-            </li>
-            <li>
-              <strong>Phone number: </strong> {userData.phone_number}
-            </li>
-            <li>
-              <strong>Address: </strong> {userData.address}
-            </li>
-          </ul>
-        )}
-      </aside>
-      <div className={styles.mainContent}>
-        <div className={styles.ads}>
-          <CarouselComponent />
-        </div>
-        <div className={styles.subContent}>
-          <nav className={styles.tabBar}>
+        <div className={styles.userInfoWrapper}>
+          {userData && (
             <ul>
-              <li
-                onClick={() => handleTab("news")}
-                className={
-                  tabContent === "news" ? styles.selectedTab : undefined
-                }
-              >
-                News |
+              <li>
+                <img src={defaultFactoryImg} alt="Factory img" />
               </li>
-              <li
-                onClick={() => handleTab("products")}
-                className={
-                  tabContent === "products" ? styles.selectedTab : undefined
-                }
-              >
-                My Products |
+              <li>
+                <strong>Organisation: </strong> {userData.org_name}
               </li>
-              <li
-                onClick={() => handleTab("orders")}
-                className={
-                  tabContent === "orders" ? styles.selectedTab : undefined
-                }
-              >
-                Orders |
+              <li>
+                <strong>Email: </strong> {userData.email}
               </li>
-              <li
-                onClick={() => handleTab("s_products")}
-                className={
-                  tabContent === "s_products" ? styles.selectedTab : undefined
-                }
-              >
-                Search Products |
+              <li>
+                <strong>Phone number: </strong> {userData.phone_number}
               </li>
-              <li
-                onClick={() => handleTab("s_partners")}
-                className={
-                  tabContent === "s_partners" ? styles.selectedTab : undefined
-                }
-              >
-                Search Partners |
-              </li>
-              <li
-                onClick={() => handleTab("settings")}
-                className={
-                  tabContent === "settings" ? styles.selectedTab : undefined
-                }
-              >
-                Settings
+              <li>
+                <strong>Address: </strong> {userData.address}
               </li>
             </ul>
-          </nav>
-          <div>
-            <TabAction
-              products={products}
-              tabName={tabContent}
-              toggleModal={toggleModal}
-              setProducts={setProducts}
-              setLoadingProduct={setLoadingProduct}
-              setSelectedProductData={setSelectedProductData}
-            />
-          </div>
-          <div></div>
+          )}
         </div>
-      </div>
+        <div className={styles.linkWrapper}>
+            <ul>
+              <li>
+                <NavLink
+                  to="/home/"
+                  className={({ isActive, isPending }) =>
+                    isPending ? 'pending' : isActive ? styles.active : ''
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/home/orders"
+                  className={({ isActive, isPending }) =>
+                    isPending ? 'pending' : isActive ? styles.active : ''
+                  }
+                >
+                  Orders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/home/messages"
+                  className={({ isActive }) => (isActive ? styles.active : '')}
+                >
+                  Messages
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/home/analytics"
+                  className={({ isActive }) => (isActive ? styles.active : '')}
+                >
+                  Analytics
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/home/nodes"
+                  className={({ isActive }) => (isActive ? styles.active : '')}
+                >
+                  Nodes
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/home/history"
+                  className={({ isActive }) => (isActive ? styles.active : '')}
+                >
+                  History
+                </NavLink>
+              </li>
+            </ul>
+        </div>
+      </aside>
 
-      {isOpenModal === "add" && (
-        <AddProductModal setProducts={setProducts} toggleModal={toggleModal} />
+      <Outlet />
+
+      {props.isOpenModal === 'add' && (
+        <AddProductModal
+          setProducts={props.setProducts}
+          toggleModal={props.toggleModal}
+        />
       )}
-      {isOpenModal === "view" && loadingProduct === false && (
+      {props.isOpenModal === 'view' && props.loadingProduct === false && (
         <ProductDetailModal
-          isOpenModal={isOpenModal}
-          toggleModal={toggleModal}
-          loadingProduct={loadingProduct}
-          selectedProductData={selectedProductData}
+          isOpenModal={props.isOpenModal}
+          toggleModal={props.toggleModal}
+          loadingProduct={props.loadingProduct}
+          selectedProductData={props.selectedProductData}
         />
       )}
-      {isOpenModal === "update" && (
+      {props.isOpenModal === 'update' && (
         <UpdateProductModal
-          toggleModal={toggleModal}
-          setProducts={setProducts}
-          selectedProductData={selectedProductData}
+          toggleModal={props.toggleModal}
+          setProducts={props.setProducts}
+          selectedProductData={props.selectedProductData}
         />
       )}
-      {isOpenModal === "deleteAccount" && (
-        <DeleteAccountModal
-          toggleModal={toggleModal}
-        />
+      {props.isOpenModal === 'deleteAccount' && (
+        <DeleteAccountModal toggleModal={props.toggleModal} />
       )}
     </div>
   );
